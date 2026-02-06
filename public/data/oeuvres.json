@@ -1,0 +1,350 @@
+[
+  {
+    "id": "cerce-nacarat",
+    "artiste": "Marcelle Ferron",
+    "titre": "Cerce Nacarat",
+    "annee": "1948",
+    "periode": "1940s",
+    "type": "Peinture",
+    "tags": [
+      "abstraction",
+      "automatisme",
+      "huile",
+      "early"
+    ],
+    "mots_cles": [
+      "abstraction",
+      "automatisme",
+      "huile",
+      "débuts",
+      "toile",
+      "marouflage",
+      "Montréal"
+    ],
+    "palette": [
+      "#2b2b2b",
+      "#f2f2f2",
+      "#d24b3a"
+    ],
+    "image": "images/cerce-nacarat.jpg",
+    "contexte": "À la fin des années 1940, Ferron affirme une abstraction en formation au Québec. Ici, peinture réalisée en Huile sur toile marouflée sur contreplaqué (lieu de production : Montréal (Québec), Canada). À observer : huile, débuts, toile.",
+    "materiaux": [
+      "Huile sur toile marouflée sur contreplaqué"
+    ],
+    "lieu": "Montréal (Québec), Canada",
+    "source": "MACrépertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/cerce-nacarat/"
+  },
+  {
+    "id": "le-poete-enchante",
+    "artiste": "Marcelle Ferron",
+    "titre": "Le Poète enchanté",
+    "annee": "1949",
+    "periode": "1940s",
+    "type": "Peinture",
+    "tags": [
+      "abstraction",
+      "automatisme",
+      "huile",
+      "early"
+    ],
+    "mots_cles": [
+      "abstraction",
+      "automatisme",
+      "huile",
+      "débuts",
+      "toile",
+      "marouflage",
+      "Montréal"
+    ],
+    "palette": [
+      "#202020",
+      "#f0f0f0",
+      "#b53b2f"
+    ],
+    "image": "images/le-poete-enchante.jpg",
+    "contexte": "À la fin des années 1940, Ferron affirme une abstraction en formation au Québec. Ici, peinture réalisée en Huile sur toile marouflée sur carton (lieu de production : Montréal (Québec), Canada). À observer : huile, débuts, toile.",
+    "materiaux": [
+      "Huile sur toile marouflée sur carton"
+    ],
+    "lieu": "Montréal (Québec), Canada",
+    "source": "MACrépertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/le-poete-enchante/"
+  },
+  {
+    "id": "composition-en-bleu",
+    "artiste": "Marcelle Ferron",
+    "titre": "Composition en bleu",
+    "annee": "1950",
+    "periode": "1950s",
+    "type": "Peinture",
+    "tags": [
+      "abstraction",
+      "huile",
+      "bleu",
+      "automatisme"
+    ],
+    "mots_cles": [
+      "abstraction",
+      "huile",
+      "bleu",
+      "automatisme",
+      "geste",
+      "rythme",
+      "Montréal"
+    ],
+    "palette": [
+      "#0d2b45",
+      "#e9eef5",
+      "#c14953"
+    ],
+    "image": "images/composition-en-bleu.jpg",
+    "contexte": "Dans les années 1950, son abstraction gestuelle s'inscrit dans l'élan automatiste. Ici, peinture réalisée en Huile sur support rigide (lieu de production : Montréal (Québec), Canada). À observer : huile, bleu, geste.",
+    "materiaux": [
+      "Huile sur support rigide"
+    ],
+    "lieu": "Montréal (Québec), Canada",
+    "source": "MACrépertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/composition-en-bleu/"
+  },
+  {
+    "id": "composition-no-17",
+    "artiste": "Marcelle Ferron",
+    "titre": "Composition no 17",
+    "annee": "1955",
+    "periode": "1950s",
+    "type": "Peinture",
+    "tags": [
+      "abstraction",
+      "huile",
+      "automatisme"
+    ],
+    "mots_cles": [
+      "abstraction",
+      "huile",
+      "automatisme",
+      "toile",
+      "geste",
+      "rythme"
+    ],
+    "palette": [
+      "#1f1f1f",
+      "#f6f6f6",
+      "#b34a3c"
+    ],
+    "image": "images/composition-no-17.jpg",
+    "contexte": "Dans les années 1950, son abstraction gestuelle s'inscrit dans l'élan automatiste. Ici, peinture réalisée en Huile sur toile. À observer : huile, toile, geste.",
+    "materiaux": [
+      "Huile sur toile"
+    ],
+    "lieu": "",
+    "source": "MACrépertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/composition-no-17/"
+  },
+  {
+    "id": "congo",
+    "artiste": "Marcelle Ferron",
+    "titre": "Congo",
+    "annee": "1962",
+    "periode": "1960s",
+    "type": "Peinture",
+    "tags": [
+      "abstraction",
+      "huile",
+      "paris",
+      "grands-contrastes"
+    ],
+    "mots_cles": [
+      "abstraction",
+      "huile",
+      "Paris",
+      "contraste",
+      "toile",
+      "structure",
+      "matière"
+    ],
+    "palette": [
+      "#1b1b1b",
+      "#f6f1e7",
+      "#c9473a"
+    ],
+    "image": "images/congo.jpg",
+    "contexte": "Au début des années 1960, Ferron explore intensément supports et matières. Ici, peinture réalisée en Huile sur toile (lieu de production : Paris, France). À observer : huile, paris, contraste.",
+    "materiaux": [
+      "Huile sur toile"
+    ],
+    "lieu": "Paris, France",
+    "source": "MACrépertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/congo/"
+  },
+  {
+    "id": "les-grandes-formes-qui-dansent-champ-de-mars-1968",
+    "artiste": "Marcelle Ferron",
+    "titre": "Les grandes formes qui dansent (Champ-de-Mars, Montréal)",
+    "annee": "1968",
+    "periode": "1960s",
+    "type": "Vitrail (art public)",
+    "tags": [
+      "vitrail",
+      "art-public",
+      "lumiere",
+      "montreal"
+    ],
+    "mots_cles": [
+      "plomb",
+      "verre",
+      "lumière",
+      "métro",
+      "Champ-de-Mars"
+    ],
+    "materiaux": [
+      "verre",
+      "plomb"
+    ],
+    "lieu": "Station Champ-de-Mars (métro de Montréal)",
+    "palette": [
+      "#5F388F",
+      "#6249AC",
+      "#FEC842"
+    ],
+    "image": "images/ferron-champ-de-mars.jpg",
+    "source": "Wikimedia Commons (photo)",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Les_grandes_formes_qui_dansent.jpg"
+  },
+  {
+    "id": "untitled-1972-mmfa",
+    "artiste": "Marcelle Ferron",
+    "titre": "Untitled (vitrail), Musée des beaux-arts de Montréal (MMFA)",
+    "annee": "1972",
+    "periode": "1970s-80s",
+    "type": "Vitrail",
+    "tags": [
+      "vitrail",
+      "mmfa",
+      "lumiere"
+    ],
+    "mots_cles": [
+      "plomb",
+      "verre",
+      "lumière",
+      "musée"
+    ],
+    "materiaux": [
+      "verre",
+      "plomb"
+    ],
+    "lieu": "Musée des beaux-arts de Montréal (MMFA)",
+    "palette": [
+      "#5F388F",
+      "#6249AC",
+      "#FEC842"
+    ],
+    "image": "images/ferron-mmfa-untitled-1972.jpg",
+    "source": "Wikimedia Commons (photo)",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Marcelle-ferron-untitled.jpg"
+  },
+  {
+    "id": "sans-titre-1979-palais-de-justice-granby",
+    "artiste": "Marcelle Ferron",
+    "titre": "Sans titre (vitrail), Palais de justice de Granby",
+    "annee": "1979",
+    "periode": "1970s-80s",
+    "type": "Vitrail (art public)",
+    "tags": [
+      "vitrail",
+      "art-public",
+      "granby",
+      "lumiere"
+    ],
+    "mots_cles": [
+      "plomb",
+      "verre",
+      "lumière",
+      "architecture"
+    ],
+    "materiaux": [
+      "verre",
+      "plomb"
+    ],
+    "lieu": "Palais de justice de Granby",
+    "palette": [
+      "#ED575A",
+      "#FEC842",
+      "#6249AC"
+    ],
+    "image": "images/ferron-granby.jpg",
+    "source": "Wikimedia Commons (photo)",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Marcelle_Ferron,_-Sans_titre-,_1979_(6932256174).jpg"
+  },
+  {
+    "id": "verriere-et-sculpture-1979-station-vendome",
+    "artiste": "Marcelle Ferron",
+    "titre": "Verrière et sculpture, station Vendôme (métro de Montréal)",
+    "annee": "1979",
+    "periode": "1970s-80s",
+    "type": "Vitrail (art public)",
+    "tags": [
+      "vitrail",
+      "art-public",
+      "montreal",
+      "vendome",
+      "lumiere"
+    ],
+    "mots_cles": [
+      "plomb",
+      "verre",
+      "lumière",
+      "métro",
+      "Vendôme"
+    ],
+    "materiaux": [
+      "verre",
+      "plomb"
+    ],
+    "lieu": "Station Vendôme (métro de Montréal)",
+    "palette": [
+      "#5F388F",
+      "#6249AC",
+      "#FEC842"
+    ],
+    "image": "images/ferron-vendome.jpg",
+    "source": "Wikimedia Commons (photo)",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Marcelle_Ferron_stained_glass_station_Vend%C3%B4me_(12501634003).jpg"
+  },
+  {
+    "id": "les-fees-se-drapent",
+    "artiste": "Marcelle Ferron",
+    "titre": "Les Fées se drapent",
+    "annee": "1978",
+    "periode": "1970s-80s",
+    "type": "Peinture",
+    "tags": [
+      "abstraction",
+      "huile",
+      "metallic",
+      "grand-geste"
+    ],
+    "mots_cles": [
+      "abstraction",
+      "huile",
+      "métallique",
+      "grand geste",
+      "toile",
+      "métal",
+      "peinture métallique"
+    ],
+    "palette": [
+      "#1a1a1a",
+      "#f5f5f5",
+      "#b84d3a"
+    ],
+    "image": "images/les-fees-se-drapent.jpg",
+    "contexte": "Dans les années 1970-80, son langage plastique gagne en ampleur et en assurance. Ici, peinture réalisée en Huile et peinture métallique sur toile. À observer : huile, métallique, grand geste.",
+    "materiaux": [
+      "Huile et peinture métallique sur toile"
+    ],
+    "lieu": "",
+    "source": "MACrépertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/les-fees-se-drapent/"
+  }
+]
