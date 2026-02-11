@@ -341,5 +341,328 @@
     "lieu": "",
     "source": "MACrépertoire (MACM)",
     "source_url": "https://macrepertoire.macm.org/oeuvre/les-fees-se-drapent/"
+  },
+  {
+    "id": "le-champ-russe",
+    "artiste": "Marcelle Ferron",
+    "titre": "Le Champ russe",
+    "annee": "1947-1948",
+    "periode": "1940s",
+    "type": "Peinture",
+    "tags": [
+      "abstraction",
+      "automatisme",
+      "huile",
+      "early"
+    ],
+    "mots_cles": [
+      "abstraction",
+      "automatisme",
+      "huile",
+      "débuts",
+      "Montréal"
+    ],
+    "palette": [
+      "#1b1b1b",
+      "#e8e8e8",
+      "#c33a2c"
+    ],
+    "image": "images/le-champ-russe.jpg",
+    "contexte": "À la fin des années 1940, Ferron affirme une abstraction en formation au Québec. Ici, peinture réalisée en Huile sur support rigide (lieu de production : Montréal (Québec), Canada). À observer : huile, débuts.",
+    "materiaux": [
+      "Huile sur support rigide"
+    ],
+    "lieu": "Montréal (Québec), Canada",
+    "source": "MACrépertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/le-champ-russe/"
+  },
+  {
+    "id": "le-bolide",
+    "artiste": "Marcelle Ferron",
+    "titre": "Le Bolide",
+    "annee": "vers 1964",
+    "periode": "1960s",
+    "type": "Peinture",
+    "tags": [
+      "abstraction",
+      "huile",
+      "metallic",
+      "paris"
+    ],
+    "mots_cles": [
+      "abstraction",
+      "huile",
+      "métallique",
+      "Paris",
+      "toile",
+      "métal",
+      "peinture métallique"
+    ],
+    "palette": [
+      "#1a1a1a",
+      "#f4f4f4",
+      "#d14a3a"
+    ],
+    "image": "images/le-bolide.jpg",
+    "contexte": "Au début des années 1960, Ferron explore intensément supports et matières. Ici, peinture réalisée en Huile et peinture métallique sur toile (lieu de production : Paris, France). À observer : huile, métallique, paris.",
+    "materiaux": [
+      "Huile et peinture métallique sur toile"
+    ],
+    "lieu": "Paris, France",
+    "source": "MACrépertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/le-bolide/"
+  },
+  {
+    "id": "hommage-a-la-musique",
+    "artiste": "Marcelle Ferron",
+    "titre": "Hommage à la musique",
+    "annee": "1969",
+    "periode": "1960s",
+    "type": "Peinture",
+    "tags": [
+      "abstraction",
+      "verre-antique",
+      "plastique",
+      "metal",
+      "lumiere"
+    ],
+    "mots_cles": [
+      "abstraction",
+      "verre antique",
+      "plastique",
+      "métal",
+      "lumière",
+      "verre"
+    ],
+    "palette": [
+      "#1b1b1b",
+      "#f0f0f0",
+      "#c84a3a"
+    ],
+    "image": "images/hommage-a-la-musique.jpg",
+    "contexte": "Au début des années 1960, Ferron explore intensément supports et matières. Ici, peinture réalisée en Verre antique, plastique et métal. À observer : verre antique, plastique, métal.",
+    "materiaux": [
+      "Verre antique, plastique et métal"
+    ],
+    "lieu": "",
+    "source": "MACrépertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/hommage-a-la-musique/"
+  },
+  {
+    "id": "l-odalisque",
+    "artiste": "Marcelle Ferron",
+    "titre": "L’Odalisque",
+    "annee": "1983",
+    "periode": "1970s-80s",
+    "type": "Peinture",
+    "tags": [
+      "abstraction",
+      "huile",
+      "metallic",
+      "grand-format"
+    ],
+    "mots_cles": [
+      "abstraction",
+      "huile",
+      "métallique",
+      "grand format",
+      "toile",
+      "métal",
+      "peinture métallique"
+    ],
+    "palette": [
+      "#202020",
+      "#f2f2f2",
+      "#2b6a8a"
+    ],
+    "image": "images/l-odalisque.jpg",
+    "contexte": "Dans les années 1970-80, son langage plastique gagne en ampleur et en assurance. Ici, peinture réalisée en Huile et peinture métallique sur toile. À observer : huile, métallique, grand format.",
+    "materiaux": [
+      "Huile et peinture métallique sur toile"
+    ],
+    "lieu": "",
+    "source": "MACrépertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/l-odalisque/"
+  },
+  {
+    "id": "etude-no-1",
+    "artiste": "Marcelle Ferron",
+    "titre": "Étude no 1",
+    "annee": "1961",
+    "periode": "1960s",
+    "type": "Dessin",
+    "tags": [
+      "dessin",
+      "gouache",
+      "sur papier",
+      "abstraction"
+    ],
+    "mots_cles": [
+      "abstraction",
+      "dessin",
+      "gouache",
+      "papier",
+      "métal",
+      "peinture métallique",
+      "structure"
+    ],
+    "palette": [
+      "#1e1e1e",
+      "#f5f5f5",
+      "#9b6b2f"
+    ],
+    "image": "images/etude-no-1.jpg",
+    "contexte": "Au début des années 1960, Ferron explore intensément supports et matières. Ici, dessin réalisé en Gouache et peinture métallique sur papier (lieu de production : Paris, France). À observer : dessin, gouache, papier.",
+    "materiaux": [
+      "Gouache et peinture métallique sur papier"
+    ],
+    "lieu": "Paris, France",
+    "source": "MACrépertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/etude-no-1/"
+  },
+  {
+    "id": "sans-titre-71-86",
+    "artiste": "Marcelle Ferron",
+    "titre": "Sans titre",
+    "annee": "1962",
+    "periode": "1960s",
+    "type": "Dessin",
+    "tags": [
+      "dessin",
+      "encre",
+      "sur papier",
+      "abstraction"
+    ],
+    "mots_cles": [
+      "abstraction",
+      "dessin",
+      "encre",
+      "papier",
+      "métal",
+      "peinture métallique",
+      "structure"
+    ],
+    "palette": [
+      "#1a1a1a",
+      "#ededed",
+      "#7a4e2a"
+    ],
+    "image": "images/sans-titre-71-86.jpg",
+    "contexte": "Au début des années 1960, Ferron explore intensément supports et matières. Ici, dessin réalisé en Peinture métallique et encre sur papier (lieu de production : Paris, France). À observer : dessin, encre, papier.",
+    "materiaux": [
+      "Peinture métallique et encre sur papier"
+    ],
+    "lieu": "Paris, France",
+    "source": "MACrépertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/sans-titre-71-86/"
+  },
+  {
+    "id": "a-la-peinture-argentee",
+    "artiste": "Marcelle Ferron",
+    "titre": "À la peinture argentée",
+    "annee": "1963",
+    "periode": "1960s",
+    "type": "Dessin",
+    "tags": [
+      "dessin",
+      "gouache",
+      "sur papier",
+      "metallic"
+    ],
+    "mots_cles": [
+      "abstraction",
+      "dessin",
+      "gouache",
+      "papier",
+      "métallique",
+      "métal",
+      "peinture métallique"
+    ],
+    "palette": [
+      "#2b2b2b",
+      "#f1f1f1",
+      "#8f8f8f"
+    ],
+    "image": "images/a-la-peinture-argentee.jpg",
+    "contexte": "Au début des années 1960, Ferron explore intensément supports et matières. Ici, dessin réalisé en Gouache, peinture métallique, peinture au latex et vernis sur papier (lieu de production : Paris, France). À observer : dessin, gouache, papier.",
+    "materiaux": [
+      "Gouache, peinture métallique, peinture au latex et vernis sur papier"
+    ],
+    "lieu": "Paris, France",
+    "source": "MACrépertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/a-la-peinture-argentee/"
+  },
+  {
+    "id": "sans-titre-92-625",
+    "artiste": "Marcelle Ferron",
+    "titre": "Sans titre",
+    "annee": "1963",
+    "periode": "1960s",
+    "type": "Dessin",
+    "tags": [
+      "dessin",
+      "gouache",
+      "sur papier",
+      "abstraction"
+    ],
+    "mots_cles": [
+      "abstraction",
+      "dessin",
+      "gouache",
+      "papier",
+      "métal",
+      "peinture métallique",
+      "structure"
+    ],
+    "palette": [
+      "#1e1e1e",
+      "#f4f4f4",
+      "#a85a2a"
+    ],
+    "image": "images/sans-titre-92-625.jpg",
+    "contexte": "Au début des années 1960, Ferron explore intensément supports et matières. Ici, dessin réalisé en Gouache, peinture métallique, peinture au latex et vernis sur papier. À observer : dessin, gouache, papier.",
+    "materiaux": [
+      "Gouache, peinture métallique, peinture au latex et vernis sur papier"
+    ],
+    "lieu": "",
+    "source": "MACrépertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/sans-titre-92-625/"
+  },
+  {
+    "id": "sans-titre-65-109",
+    "artiste": "Marcelle Ferron",
+    "titre": "Sans titre",
+    "annee": "1964",
+    "periode": "1960s",
+    "type": "Dessin",
+    "tags": [
+      "dessin",
+      "gouache",
+      "encre",
+      "sur papier",
+      "paris"
+    ],
+    "mots_cles": [
+      "abstraction",
+      "dessin",
+      "gouache",
+      "encre",
+      "papier",
+      "Paris",
+      "toile"
+    ],
+    "palette": [
+      "#222222",
+      "#f0f0f0",
+      "#2f6f7e"
+    ],
+    "image": "images/sans-titre-65-109.jpg",
+    "contexte": "Au début des années 1960, Ferron explore intensément supports et matières. Ici, dessin réalisé en Gouache et encre sur papier marouflé sur toile (lieu de production : Paris, France). À observer : dessin, gouache, encre.",
+    "materiaux": [
+      "Gouache et encre sur papier marouflé sur toile"
+    ],
+    "lieu": "Paris, France",
+    "source": "MACrépertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/sans-titre-65-109/"
   }
 ]
