@@ -1,6 +1,7 @@
 type ChatbotAction = "intro" | "lumiere" | "couleur" | "contexte" | "similaire" | "droits";
 type PeriodeFilter = "toutes" | "1940s" | "1950s" | "1960s" | "1970s-80s" | (string & {});
 type HeaderLang = "fr" | "en";
+type Medium = "vitrail" | "peinture" | "dessin";
 
 interface Oeuvre {
   id: string;
@@ -480,10 +481,212 @@ const gradientFromPalette = (palette?: string[]): string => {
   return `linear-gradient(135deg, ${a}, ${b} 55%, ${c})`;
 };
 
-const PIECE_MOSAIC_SRC = "/images/2%20backgroundgalerie.png";
-const pieceMosaicImage = new Image();
-pieceMosaicImage.decoding = "async";
-pieceMosaicImage.src = PIECE_MOSAIC_SRC;
+const hashSeed = (input: string): number => {
+  // FNV-1a 32-bit
+  let hash = 0x811c9dc5;
+  for (let i = 0; i < input.length; i += 1) {
+    hash ^= input.charCodeAt(i);
+    hash = Math.imul(hash, 0x01000193);
+  }
+  return hash >>> 0;
+};
+
+const mulberry32 = (seed: number): (() => number) => {
+  let a = seed >>> 0;
+  return (): number => {
+    a |= 0;
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+};
+
+const clamp = (n: number, min: number, max: number): number => Math.min(max, Math.max(min, n));
+
+const hexToRgbSimple = (hex: string): [number, number, number] | null => {
+  const cleaned = String(hex ?? "").trim().replace("#", "");
+  if (cleaned.length !== 3 && cleaned.length !== 6) return null;
+  const full = cleaned.length === 3
+    ? cleaned
+        .split("")
+        .map((char) => `${char}${char}`)
+        .join("")
+    : cleaned;
+  if (!/^[0-9a-fA-F]{6}$/.test(full)) return null;
+  const r = parseInt(full.slice(0, 2), 16);
+  const g = parseInt(full.slice(2, 4), 16);
+  const b = parseInt(full.slice(4, 6), 16);
+  return [r, g, b];
+};
+
+const rgba = (hex: string, alpha: number): string => {
+  const rgb = hexToRgbSimple(hex);
+  if (!rgb) return `rgba(255,255,255,${clamp(alpha, 0, 1)})`;
+  const [r, g, b] = rgb;
+  return `rgba(${r},${g},${b},${clamp(alpha, 0, 1)})`;
+};
+
+const mediumFromType = (type: string): Medium => {
+  const t = String(type ?? "").toLowerCase();
+  if (t.includes("vitrail")) return "vitrail";
+  if (t.includes("dessin")) return "dessin";
+  return "peinture";
+};
+
+const normalizePalette = (palette?: string[], rng?: () => number): string[] => {
+  const base = Array.isArray(palette) ? palette.filter((x) => typeof x === "string" && x.trim() !== "") : [];
+  if (base.length >= 3) return base;
+  const fallback = ["#5F388F", "#6249AC", "#FEC842", "#ED575A", "#52B646"];
+  if (!rng) return fallback.slice(0, 3);
+
+  const arr = fallback.slice();
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(rng() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr.slice(0, 3);
+};
+
+const pickColors = (colors: string[], count: number, rng: () => number): string[] => {
+  const unique = Array.from(new Set(colors));
+  if (unique.length <= count) {
+    const out = unique.slice();
+    while (out.length < count) out.push(unique[out.length % unique.length] ?? "#ffffff");
+    return out;
+  }
+  const pool = unique.slice();
+  const out: string[] = [];
+  for (let i = 0; i < count; i += 1) {
+    const idx = Math.floor(rng() * pool.length);
+    out.push(pool.splice(idx, 1)[0]);
+  }
+  return out;
+};
+
+const buildVitrailPreviewBg = (palette: string[], rng: () => number): { bg: string; blend: string } => {
+  const colors = pickColors(palette, 6, rng);
+  const cx = Math.round(30 + rng() * 40);
+  const cy = Math.round(30 + rng() * 40);
+  const from = Math.round(rng() * 360);
+
+  const cuts: number[] = [];
+  for (let i = 0; i < 5; i += 1) cuts.push(10 + rng() * 80);
+  cuts.sort((a, b) => a - b);
+
+  const segs = [
+    `${colors[0]} 0% ${cuts[0]}%`,
+    `${colors[1]} ${cuts[0]}% ${cuts[1]}%`,
+    `${colors[2]} ${cuts[1]}% ${cuts[2]}%`,
+    `${colors[3]} ${cuts[2]}% ${cuts[3]}%`,
+    `${colors[4]} ${cuts[3]}% ${cuts[4]}%`,
+    `${colors[5]} ${cuts[4]}% 100%`
+  ].join(", ");
+
+  const glowX = Math.round(18 + rng() * 64);
+  const glowY = Math.round(14 + rng() * 66);
+  const leadA = Math.round(10 + rng() * 50);
+  const leadB = (leadA + 90 + Math.round(rng() * 40)) % 180;
+
+  const bg = [
+    `radial-gradient(220px 180px at ${glowX}% ${glowY}%, rgba(254,200,66,.22), transparent 65%)`,
+    `radial-gradient(260px 220px at ${100 - glowX}% ${100 - glowY}%, rgba(180,92,164,.18), transparent 70%)`,
+    `conic-gradient(from ${from}deg at ${cx}% ${cy}%, ${segs})`,
+    `repeating-linear-gradient(${leadA}deg, rgba(10,6,20,.82) 0 2px, rgba(10,6,20,0) 2px 26px)`,
+    `repeating-linear-gradient(${leadB}deg, rgba(10,6,20,.55) 0 2px, rgba(10,6,20,0) 2px 32px)`,
+    `radial-gradient(120% 90% at 50% 10%, rgba(255,255,255,.10), transparent 62%)`
+  ].join(", ");
+
+  const blend = "screen, screen, normal, multiply, multiply, soft-light";
+  return { bg, blend };
+};
+
+const buildPeinturePreviewBg = (palette: string[], rng: () => number): { bg: string; blend: string } => {
+  const colors = pickColors(palette, 5, rng);
+  const a1 = Math.round(rng() * 360);
+  const a2 = (a1 + 60 + Math.round(rng() * 80)) % 360;
+
+  const blobs: string[] = [];
+  for (let i = 0; i < 4; i += 1) {
+    const x = Math.round(10 + rng() * 80);
+    const y = Math.round(10 + rng() * 80);
+    const s1 = Math.round(140 + rng() * 220);
+    const s2 = Math.round(120 + rng() * 200);
+    const c = colors[i % colors.length];
+    blobs.push(`radial-gradient(${s1}px ${s2}px at ${x}% ${y}%, ${rgba(c, 0.70)}, transparent 68%)`);
+  }
+
+  const streak1 = `repeating-linear-gradient(${a1}deg, rgba(255,255,255,.06) 0 7px, rgba(0,0,0,0) 7px 22px)`;
+  const streak2 = `repeating-linear-gradient(${a2}deg, rgba(0,0,0,.08) 0 5px, rgba(0,0,0,0) 5px 18px)`;
+
+  const bg = [
+    `linear-gradient(${a1}deg, ${rgba(colors[0], 0.90)}, ${rgba(colors[1], 0.70)} 52%, ${rgba(colors[2], 0.80)})`,
+    ...blobs,
+    `linear-gradient(${a2}deg, ${rgba(colors[3], 0.25)}, transparent 65%)`,
+    streak1,
+    streak2,
+    `radial-gradient(120% 100% at 50% 10%, rgba(255,255,255,.10), transparent 60%)`
+  ].join(", ");
+
+  const blend = "normal, screen, screen, screen, soft-light, overlay, multiply, soft-light";
+  return { bg, blend };
+};
+
+const buildDessinPreviewBg = (palette: string[], rng: () => number): { bg: string; blend: string } => {
+  const colors = pickColors(palette, 3, rng);
+  const accent = colors[Math.floor(rng() * colors.length)];
+  const hatchA = Math.round(10 + rng() * 25);
+  const hatchB = (hatchA + 90) % 180;
+
+  const bg = [
+    "linear-gradient(180deg, #f7f1e8, #e9e0d3)",
+    `radial-gradient(240px 190px at ${Math.round(20 + rng() * 60)}% ${Math.round(20 + rng() * 60)}%, rgba(0,0,0,.08), transparent 70%)`,
+    `repeating-linear-gradient(${hatchA}deg, rgba(0,0,0,.10) 0 1px, rgba(0,0,0,0) 1px 7px)`,
+    `repeating-linear-gradient(${hatchB}deg, rgba(0,0,0,.07) 0 1px, rgba(0,0,0,0) 1px 10px)`,
+    `radial-gradient(120px 90px at ${Math.round(55 + rng() * 35)}% ${Math.round(15 + rng() * 50)}%, ${rgba(accent, 0.22)}, transparent 70%)`,
+    "radial-gradient(120% 90% at 50% 10%, rgba(255,255,255,.10), transparent 62%)"
+  ].join(", ");
+
+  const blend = "normal, multiply, multiply, multiply, normal, soft-light";
+  return { bg, blend };
+};
+
+const createArtworkPreviewCSS = (
+  artwork: Pick<Oeuvre, "id" | "titre" | "type" | "palette" | "image">
+): { className: string; style: Record<string, string> } => {
+  const medium = mediumFromType(artwork.type);
+  const seedStr = `${artwork.id ?? artwork.titre ?? ""}::${medium}`;
+  const rng = mulberry32(hashSeed(seedStr));
+  const palette = normalizePalette(artwork.palette, rng);
+
+  const result =
+    medium === "vitrail"
+      ? buildVitrailPreviewBg(palette, rng)
+      : medium === "dessin"
+        ? buildDessinPreviewBg(palette, rng)
+        : buildPeinturePreviewBg(palette, rng);
+
+  return {
+    className: `thumb thumb--${medium}`,
+    style: {
+      "--thumb-bg": result.bg,
+      "--thumb-blend": result.blend
+    }
+  };
+};
+
+const applyArtworkPreview = (el: HTMLElement, artwork: Oeuvre): void => {
+  const preview = createArtworkPreviewCSS(artwork);
+  el.classList.add("thumb");
+  el.classList.remove("thumb--vitrail", "thumb--peinture", "thumb--dessin");
+  preview.className
+    .split(" ")
+    .filter(Boolean)
+    .forEach((c) => el.classList.add(c));
+  Object.entries(preview.style).forEach(([key, value]) => {
+    el.style.setProperty(key, value);
+  });
+};
 
 const setSelectedVisual = (id: string | null): void => {
   Array.from(mosaicPieces.querySelectorAll<HTMLDivElement>(".piece")).forEach((piece) => {
@@ -532,6 +735,9 @@ const resetSelectionState = (): void => {
   artMeta.textContent = i18nValue("artMetaDefault");
   artMedia.setAttribute("hidden", "true");
   artMedia.style.backgroundImage = "";
+  artMedia.classList.remove("thumb", "thumb--vitrail", "thumb--peinture", "thumb--dessin");
+  artMedia.style.removeProperty("--thumb-bg");
+  artMedia.style.removeProperty("--thumb-blend");
   sectionDesc.setAttribute("hidden", "true");
   artDesc.textContent = "";
   sectionLinks.setAttribute("hidden", "true");
@@ -606,6 +812,9 @@ const updateSelectedMedia = (id: string | null): void => {
   if (!id) {
     sectionThumb.setAttribute("hidden", "true");
     artMedia.style.backgroundImage = "";
+    artMedia.classList.remove("thumb", "thumb--vitrail", "thumb--peinture", "thumb--dessin");
+    artMedia.style.removeProperty("--thumb-bg");
+    artMedia.style.removeProperty("--thumb-blend");
     return;
   }
 
@@ -613,11 +822,15 @@ const updateSelectedMedia = (id: string | null): void => {
   if (!oeuvre) {
     sectionThumb.setAttribute("hidden", "true");
     artMedia.style.backgroundImage = "";
+    artMedia.classList.remove("thumb", "thumb--vitrail", "thumb--peinture", "thumb--dessin");
+    artMedia.style.removeProperty("--thumb-bg");
+    artMedia.style.removeProperty("--thumb-blend");
     return;
   }
 
   // Stratégie "safe": on affiche une vignette générée (dégradé), pas la photo de l'oeuvre.
-  artMedia.style.backgroundImage = gradientFromPalette(oeuvre.palette);
+  artMedia.style.backgroundImage = "";
+  applyArtworkPreview(artMedia, oeuvre);
   sectionThumb.removeAttribute("hidden");
 };
 
@@ -855,37 +1068,6 @@ const buildChatbotResponse = (
   };
 };
 
-const syncPieceMosaicBackgrounds = (): void => {
-  const baseRect = hero.getBoundingClientRect();
-  if (baseRect.width < 2 || baseRect.height < 2) return;
-
-  const pieces = Array.from(mosaicPieces.querySelectorAll<HTMLElement>(".piece"));
-  const imgW = pieceMosaicImage.naturalWidth || 0;
-  const imgH = pieceMosaicImage.naturalHeight || 0;
-
-  let bgW = baseRect.width;
-  let bgH = baseRect.height;
-  let offsetX = 0;
-  let offsetY = 0;
-
-  if (imgW > 0 && imgH > 0) {
-    const heroScale = 1.02;
-    const scale = Math.max(baseRect.width / imgW, baseRect.height / imgH) * heroScale;
-    bgW = imgW * scale;
-    bgH = imgH * scale;
-    offsetX = (baseRect.width - bgW) / 2;
-    offsetY = (baseRect.height - bgH) / 2;
-  }
-
-  pieces.forEach((piece) => {
-    const rect = piece.getBoundingClientRect();
-    const x = rect.left - baseRect.left;
-    const y = rect.top - baseRect.top;
-    piece.style.setProperty("--piece-mosaic-size", `${bgW}px ${bgH}px`);
-    piece.style.setProperty("--piece-mosaic-pos", `${offsetX - x}px ${offsetY - y}px`);
-  });
-};
-
 const renderMosaic = (): void => {
   const filtered = filterOeuvresByPeriode(oeuvres, periodeActive);
 
@@ -923,9 +1105,8 @@ const renderMosaic = (): void => {
         type: oeuvre.type
       })
     );
-    const gradient = gradientFromPalette(oeuvre.palette);
+    applyArtworkPreview(fragment, oeuvre);
     // Stratégie "safe": on n'utilise pas d'images d'oeuvres, uniquement des vignettes générées.
-    fragment.style.setProperty("--piece-gradient", gradient);
     fragment.setAttribute("aria-selected", oeuvre.id === selectedId ? "true" : "false");
 
     fragment.addEventListener("click", () => void onSelect(oeuvre.id));
@@ -944,7 +1125,6 @@ const renderMosaic = (): void => {
     resetSelectionState();
   }
 
-  requestAnimationFrame(syncPieceMosaicBackgrounds);
 };
 
 const callChatbot = async (action: ChatbotAction): Promise<void> => {
@@ -1048,17 +1228,6 @@ void (async function init(): Promise<void> {
   updatePeriodCard();
   renderMosaic();
 
-  let resizeRaf = 0;
-  window.addEventListener("resize", () => {
-    if (resizeRaf) cancelAnimationFrame(resizeRaf);
-    resizeRaf = requestAnimationFrame(() => {
-      resizeRaf = 0;
-      syncPieceMosaicBackgrounds();
-    });
-  });
-  pieceMosaicImage.addEventListener("load", () => {
-    syncPieceMosaicBackgrounds();
-  });
 
   // Spotlight souris (effet "lumière")
   let rafId = 0;
