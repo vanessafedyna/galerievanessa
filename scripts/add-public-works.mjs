@@ -90,7 +90,7 @@ const PUBLIC = [
     image: "images/ferron-vendome.jpg",
     source: "Wikimedia Commons (photo)",
     source_url:
-      "https://commons.wikimedia.org/wiki/File:Marcelle_Ferron,_Verrière_et_sculpture,_1979,_verre_et_acier_inoxydable,_station_Vendôme,_métro_de_Montréal_(12501634003).jpg"
+      "https://commons.wikimedia.org/wiki/File:Marcelle_Ferron,_Verri%C3%A8re_et_sculpture,_1979,_verre_et_acier_inoxydable,_station_Vend%C3%B4me,_m%C3%A9tro_de_Montr%C3%A9al_(12501634003).jpg"
   },
   {
     id: "untitled-1972-mmfa",
