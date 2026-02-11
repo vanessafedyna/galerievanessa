@@ -860,6 +860,18 @@ body.has-selection .hero-overlay{
   outline: 3px solid rgba(122, 167, 255, .60);
   outline-offset: 3px;
 }
+
+/* GALLERY BUTTON UPDATE */
+.link-btn.is-disabled{
+  opacity:.55;
+  cursor:not-allowed;
+  filter: grayscale(.15) saturate(.85);
+  pointer-events:none;
+  box-shadow:none;
+}
+.link-btn.is-disabled:hover{
+  transform:none;
+}
 .art-media{
   width:100%;
   margin: 0 0 12px;

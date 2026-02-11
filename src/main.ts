@@ -588,6 +588,9 @@ const updateSelectedLinks = (id: string | null): void => {
   if (!id) {
     sectionLinks.setAttribute("hidden", "true");
     sourceBtn.href = "#";
+    sourceBtn.classList.remove("is-disabled");
+    sourceBtn.removeAttribute("aria-disabled");
+    sourceBtn.removeAttribute("tabindex");
     return;
   }
 
@@ -596,9 +599,15 @@ const updateSelectedLinks = (id: string | null): void => {
   if (url) {
     sectionLinks.removeAttribute("hidden");
     sourceBtn.href = url;
+    sourceBtn.classList.remove("is-disabled");
+    sourceBtn.removeAttribute("aria-disabled");
+    sourceBtn.removeAttribute("tabindex");
   } else {
-    sectionLinks.setAttribute("hidden", "true");
     sourceBtn.href = "#";
+    sectionLinks.removeAttribute("hidden");
+    sourceBtn.classList.add("is-disabled");
+    sourceBtn.setAttribute("aria-disabled", "true");
+    sourceBtn.setAttribute("tabindex", "-1");
   }
 };
 
@@ -926,6 +935,7 @@ const renderMosaic = (): void => {
     const gradient = gradientFromPalette(oeuvre.palette);
     // Stratégie "safe": on n'utilise pas d'images d'oeuvres, uniquement des vignettes générées.
     fragment.style.setProperty("--piece-gradient", gradient);
+
     fragment.setAttribute("aria-selected", oeuvre.id === selectedId ? "true" : "false");
 
     fragment.addEventListener("click", () => void onSelect(oeuvre.id));
@@ -982,6 +992,10 @@ const onSelect = async (id: string): Promise<void> => {
   updateSelectedDescription(id);
   updateSelectedLinks(id);
   updateSelectedMedia(id);
+  /* GALLERY BUTTON UPDATE */
+  if (!oeuvres.some((o) => o.id === id)) {
+    console.warn("[Mur de lumière] Œuvre introuvable pour id=", id);
+  }
   await callChatbot("intro");
 };
 
@@ -1030,6 +1044,14 @@ actionButtons.forEach((btn) => {
 
     await callChatbot(action);
   });
+});
+
+/* GALLERY BUTTON UPDATE */
+// Empêche de naviguer si "Voir la fiche du musée" est désactivé.
+sourceBtn.addEventListener("click", (event) => {
+  if (sourceBtn.getAttribute("aria-disabled") === "true") {
+    event.preventDefault();
+  }
 });
 
 if (headerRoot && headerLangButtons.length) {
