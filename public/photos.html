@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Photos (œuvres de la galerie)</title>
+    <style>
+      :root{
+        --bg:#060611;
+        --card: rgba(255,255,255,.06);
+        --stroke: rgba(255,255,255,.12);
+        --text: #fff6ff;
+        --muted: rgba(255,255,255,.72);
+        --radius: 18px;
+      }
+      body{
+        margin:0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        background: radial-gradient(1000px 600px at 50% 0%, rgba(98,73,172,.20), transparent 60%), var(--bg);
+        color: var(--text);
+      }
+      header{
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 22px 16px 6px;
+      }
+      h1{ margin:0 0 6px; font-size: 20px; }
+      p{ margin:0; color: var(--muted); font-size: 13px; line-height: 1.4; }
+      main{
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 16px;
+      }
+      .grid{
+        display:grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+      }
+      .card{
+        border-radius: var(--radius);
+        overflow:hidden;
+        background: var(--card);
+        border: 1px solid var(--stroke);
+        box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      }
+      .img{
+        aspect-ratio: 4/3;
+        width: 100%;
+        display:block;
+        object-fit: cover;
+        background: rgba(255,255,255,.04);
+      }
+      .cap{
+        padding: 10px 12px 12px;
+      }
+      .title{
+        font-weight: 750;
+        font-size: 13px;
+        margin:0 0 2px;
+      }
+      .meta{
+        margin:0;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .pill{
+        display:inline-block;
+        margin-top: 8px;
+        font-size: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid var(--stroke);
+        background: rgba(0,0,0,.18);
+        color: var(--muted);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Photos des œuvres (celles qui ont une image locale)</h1>
+      <p>Cette page liste automatiquement les œuvres de <code>/data/oeuvres.json</code> qui ont un champ <code>image</code>.</p>
+      <p id="count"></p>
+    </header>
+
+    <main>
+      <div class="grid" id="grid"></div>
+    </main>
+
+    <script type="module">
+      const grid = document.getElementById("grid");
+      const count = document.getElementById("count");
+
+      const esc = (s) =>
+        String(s ?? "")
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+
+      const res = await fetch("/data/oeuvres.json", { cache: "no-store" });
+      const oeuvres = await res.json();
+      const withImages = Array.isArray(oeuvres) ? oeuvres.filter((o) => (o?.image ?? "").trim() !== "") : [];
+
+      count.textContent = `Photos trouvées : ${withImages.length}`;
+
+      withImages.forEach((o) => {
+        const card = document.createElement("article");
+        card.className = "card";
+
+        const img = document.createElement("img");
+        img.className = "img";
+        img.loading = "lazy";
+        img.alt = o?.titre ? String(o.titre) : "Œuvre";
+        img.src = `/${String(o.image).replace(/^\\//, "")}`;
+
+        const cap = document.createElement("div");
+        cap.className = "cap";
+        cap.innerHTML =
+          `<p class="title">${esc(o?.titre ?? o?.id ?? "Œuvre")}</p>` +
+          `<p class="meta">${esc(o?.annee ?? "")} · ${esc(o?.type ?? "")}</p>` +
+          `<span class="pill">${esc(o?.id ?? "")}</span>`;
+
+        card.appendChild(img);
+        card.appendChild(cap);
+        grid.appendChild(card);
+      });
+    </script>
+  </body>
+</html>
+
