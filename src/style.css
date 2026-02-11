@@ -544,36 +544,17 @@ body.has-selection .hero-overlay{
 }
 
 /* Pièce = fragment vitrail */
-.thumb{
-  /* Aperçu 100% génératif (défaut si JS ne set pas les variables) */
-  --thumb-bg:
-    radial-gradient(180px 140px at 30% 28%, rgba(254, 200, 66, .22), transparent 62%),
-    radial-gradient(240px 180px at 70% 72%, rgba(180, 92, 164, .18), transparent 64%),
-    linear-gradient(135deg, rgba(95, 56, 143, .68), rgba(98, 73, 172, .50) 55%, rgba(237, 87, 90, .35));
-  --thumb-blend: normal;
-  background-image: var(--thumb-bg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-blend-mode: var(--thumb-blend);
-}
-.thumb--vitrail{
-  filter: saturate(1.18) contrast(1.07);
-}
-.thumb--peinture{
-  filter: saturate(1.10) contrast(1.02);
-}
-.thumb--dessin{
-  filter: saturate(0.86) contrast(1.08) brightness(1.02);
-}
-
 .piece{
   position:absolute;
-  background-image: var(--thumb-bg);
-  background-size: cover;
-  background-position: center;
+  --piece-mosaic: url("/images/2%20backgroundgalerie.png");
+  --piece-gradient: none;
+  --piece-mosaic-pos: center;
+  --piece-mosaic-size: cover;
+  background-image: var(--piece-gradient), var(--piece-mosaic);
+  background-size: cover, var(--piece-mosaic-size);
+  background-position: center, var(--piece-mosaic-pos);
   background-repeat: no-repeat;
-  background-blend-mode: var(--thumb-blend, normal);
+  background-blend-mode: soft-light, normal;
   border: 10px solid rgba(180, 92, 164, 0.48);
   border-radius:18px;
   cursor:pointer;
@@ -885,7 +866,7 @@ body.has-selection .hero-overlay{
   border-radius: 18px;
   overflow:hidden;
   border:1px solid rgba(255,255,255,.10);
-  background-color: rgba(255,255,255,.04);
+  background: rgba(255,255,255,.04);
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
   height: 180px;
   position:relative;
