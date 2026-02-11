@@ -585,19 +585,15 @@ const buildVitrailPreviewBg = (palette: string[], rng: () => number): { bg: stri
 
   const glowX = Math.round(18 + rng() * 64);
   const glowY = Math.round(14 + rng() * 66);
-  const leadA = Math.round(10 + rng() * 50);
-  const leadB = (leadA + 90 + Math.round(rng() * 40)) % 180;
 
   const bg = [
     `radial-gradient(220px 180px at ${glowX}% ${glowY}%, rgba(254,200,66,.22), transparent 65%)`,
     `radial-gradient(260px 220px at ${100 - glowX}% ${100 - glowY}%, rgba(180,92,164,.18), transparent 70%)`,
     `conic-gradient(from ${from}deg at ${cx}% ${cy}%, ${segs})`,
-    `repeating-linear-gradient(${leadA}deg, rgba(10,6,20,.82) 0 2px, rgba(10,6,20,0) 2px 26px)`,
-    `repeating-linear-gradient(${leadB}deg, rgba(10,6,20,.55) 0 2px, rgba(10,6,20,0) 2px 32px)`,
     `radial-gradient(120% 90% at 50% 10%, rgba(255,255,255,.10), transparent 62%)`
   ].join(", ");
 
-  const blend = "screen, screen, normal, multiply, multiply, soft-light";
+  const blend = "screen, screen, normal, soft-light";
   return { bg, blend };
 };
 
@@ -616,42 +612,33 @@ const buildPeinturePreviewBg = (palette: string[], rng: () => number): { bg: str
     blobs.push(`radial-gradient(${s1}px ${s2}px at ${x}% ${y}%, ${rgba(c, 0.70)}, transparent 68%)`);
   }
 
-  const streak1 = `repeating-linear-gradient(${a1}deg, rgba(255,255,255,.06) 0 7px, rgba(0,0,0,0) 7px 22px)`;
-  const streak2 = `repeating-linear-gradient(${a2}deg, rgba(0,0,0,.08) 0 5px, rgba(0,0,0,0) 5px 18px)`;
-
   const bg = [
     `linear-gradient(${a1}deg, ${rgba(colors[0], 0.90)}, ${rgba(colors[1], 0.70)} 52%, ${rgba(colors[2], 0.80)})`,
     ...blobs,
     `linear-gradient(${a2}deg, ${rgba(colors[3], 0.25)}, transparent 65%)`,
-    streak1,
-    streak2,
     `radial-gradient(120% 100% at 50% 10%, rgba(255,255,255,.10), transparent 60%)`
   ].join(", ");
 
-  const blend = "normal, screen, screen, screen, soft-light, overlay, multiply, soft-light";
+  const blend = "normal, screen, screen, screen, soft-light, soft-light";
   return { bg, blend };
 };
 
 const buildDessinPreviewBg = (palette: string[], rng: () => number): { bg: string; blend: string } => {
   const colors = pickColors(palette, 3, rng);
   const accent = colors[Math.floor(rng() * colors.length)];
-  const hatchA = Math.round(10 + rng() * 25);
-  const hatchB = (hatchA + 90) % 180;
 
   const bg = [
     "linear-gradient(180deg, #f7f1e8, #e9e0d3)",
     `radial-gradient(240px 190px at ${Math.round(20 + rng() * 60)}% ${Math.round(20 + rng() * 60)}%, rgba(0,0,0,.08), transparent 70%)`,
-    `repeating-linear-gradient(${hatchA}deg, rgba(0,0,0,.10) 0 1px, rgba(0,0,0,0) 1px 7px)`,
-    `repeating-linear-gradient(${hatchB}deg, rgba(0,0,0,.07) 0 1px, rgba(0,0,0,0) 1px 10px)`,
     `radial-gradient(120px 90px at ${Math.round(55 + rng() * 35)}% ${Math.round(15 + rng() * 50)}%, ${rgba(accent, 0.22)}, transparent 70%)`,
     "radial-gradient(120% 90% at 50% 10%, rgba(255,255,255,.10), transparent 62%)"
   ].join(", ");
 
-  const blend = "normal, multiply, multiply, multiply, normal, soft-light";
+  const blend = "normal, multiply, normal, soft-light";
   return { bg, blend };
 };
 
-const createArtworkPreviewCSS = (
+const createArtworkPreview = (
   artwork: Pick<Oeuvre, "id" | "titre" | "type" | "palette" | "image">
 ): { className: string; style: Record<string, string> } => {
   const medium = mediumFromType(artwork.type);
@@ -670,22 +657,22 @@ const createArtworkPreviewCSS = (
     className: `thumb thumb--${medium}`,
     style: {
       "--thumb-bg": result.bg,
-      "--thumb-blend": result.blend
+      "--thumb-blend": result.blend,
+      "background-image": result.bg,
+      "background-blend-mode": result.blend
     }
   };
 };
 
-const applyArtworkPreview = (el: HTMLElement, artwork: Oeuvre): void => {
-  const preview = createArtworkPreviewCSS(artwork);
-  el.classList.add("thumb");
-  el.classList.remove("thumb--vitrail", "thumb--peinture", "thumb--dessin");
-  preview.className
-    .split(" ")
-    .filter(Boolean)
-    .forEach((c) => el.classList.add(c));
+const createArtworkThumbElement = (artwork: Oeuvre): HTMLDivElement => {
+  const thumb = document.createElement("div");
+  const preview = createArtworkPreview(artwork);
+  thumb.className = preview.className;
+  thumb.setAttribute("aria-hidden", "true");
   Object.entries(preview.style).forEach(([key, value]) => {
-    el.style.setProperty(key, value);
+    thumb.style.setProperty(key, value);
   });
+  return thumb;
 };
 
 const setSelectedVisual = (id: string | null): void => {
@@ -735,9 +722,7 @@ const resetSelectionState = (): void => {
   artMeta.textContent = i18nValue("artMetaDefault");
   artMedia.setAttribute("hidden", "true");
   artMedia.style.backgroundImage = "";
-  artMedia.classList.remove("thumb", "thumb--vitrail", "thumb--peinture", "thumb--dessin");
-  artMedia.style.removeProperty("--thumb-bg");
-  artMedia.style.removeProperty("--thumb-blend");
+  artMedia.textContent = "";
   sectionDesc.setAttribute("hidden", "true");
   artDesc.textContent = "";
   sectionLinks.setAttribute("hidden", "true");
@@ -812,9 +797,7 @@ const updateSelectedMedia = (id: string | null): void => {
   if (!id) {
     sectionThumb.setAttribute("hidden", "true");
     artMedia.style.backgroundImage = "";
-    artMedia.classList.remove("thumb", "thumb--vitrail", "thumb--peinture", "thumb--dessin");
-    artMedia.style.removeProperty("--thumb-bg");
-    artMedia.style.removeProperty("--thumb-blend");
+    artMedia.textContent = "";
     return;
   }
 
@@ -822,15 +805,14 @@ const updateSelectedMedia = (id: string | null): void => {
   if (!oeuvre) {
     sectionThumb.setAttribute("hidden", "true");
     artMedia.style.backgroundImage = "";
-    artMedia.classList.remove("thumb", "thumb--vitrail", "thumb--peinture", "thumb--dessin");
-    artMedia.style.removeProperty("--thumb-bg");
-    artMedia.style.removeProperty("--thumb-blend");
+    artMedia.textContent = "";
     return;
   }
 
   // Stratégie "safe": on affiche une vignette générée (dégradé), pas la photo de l'oeuvre.
   artMedia.style.backgroundImage = "";
-  applyArtworkPreview(artMedia, oeuvre);
+  artMedia.textContent = "";
+  artMedia.appendChild(createArtworkThumbElement(oeuvre));
   sectionThumb.removeAttribute("hidden");
 };
 
@@ -1105,8 +1087,10 @@ const renderMosaic = (): void => {
         type: oeuvre.type
       })
     );
-    applyArtworkPreview(fragment, oeuvre);
     // Stratégie "safe": on n'utilise pas d'images d'oeuvres, uniquement des vignettes générées.
+    const medium = mediumFromType(oeuvre.type);
+    fragment.classList.add(`piece--${medium}`);
+    fragment.appendChild(createArtworkThumbElement(oeuvre));
     fragment.setAttribute("aria-selected", oeuvre.id === selectedId ? "true" : "false");
 
     fragment.addEventListener("click", () => void onSelect(oeuvre.id));
