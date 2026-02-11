@@ -556,48 +556,6 @@ body.has-selection .hero-overlay{
   background-position: center;
   background-repeat: no-repeat;
   background-blend-mode: var(--thumb-blend);
-  position:relative;
-}
-.thumb::before,
-.thumb::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  border-radius: inherit;
-}
-.thumb--vitrail::before{
-  /* Plomb / contours */
-  background:
-    repeating-linear-gradient(25deg, rgba(10,6,20,.72) 0 2px, rgba(10,6,20,0) 2px 26px),
-    repeating-linear-gradient(112deg, rgba(10,6,20,.54) 0 2px, rgba(10,6,20,0) 2px 34px);
-  mix-blend-mode: multiply;
-  opacity: .75;
-}
-.thumb--vitrail::after{
-  /* Glow léger */
-  background:
-    radial-gradient(160px 120px at 35% 30%, rgba(254, 200, 66, .16), transparent 60%),
-    radial-gradient(200px 150px at 72% 72%, rgba(228, 140, 180, .14), transparent 62%);
-  mix-blend-mode: screen;
-  opacity: .75;
-}
-.thumb--peinture::before{
-  /* Texture / grain */
-  background:
-    radial-gradient(220px 170px at 24% 26%, rgba(255,255,255,.12), transparent 60%),
-    repeating-linear-gradient(0deg, rgba(255,255,255,.035) 0 1px, rgba(0,0,0,0) 1px 5px),
-    repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 1px, rgba(0,0,0,0) 1px 6px);
-  mix-blend-mode: overlay;
-  opacity: .55;
-}
-.thumb--dessin::before{
-  /* Hachures (encre/crayon) */
-  background:
-    repeating-linear-gradient(18deg, rgba(0,0,0,.14) 0 1px, rgba(0,0,0,0) 1px 7px),
-    repeating-linear-gradient(108deg, rgba(0,0,0,.09) 0 1px, rgba(0,0,0,0) 1px 10px);
-  mix-blend-mode: multiply;
-  opacity: .60;
 }
 .thumb--vitrail{
   filter: saturate(1.18) contrast(1.07);
@@ -611,28 +569,24 @@ body.has-selection .hero-overlay{
 
 .piece{
   position:absolute;
-  background: transparent;
+  background-image: var(--thumb-bg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: var(--thumb-blend, normal);
   border: 10px solid rgba(180, 92, 164, 0.48);
   border-radius:18px;
   cursor:pointer;
   outline:none;
   transform: translateZ(0);
   transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
-  overflow:hidden;
-  isolation:isolate;
   box-shadow:
     inset 0 0 0 1px rgba(254, 200, 66, .14),
     inset 0 10px 22px rgba(255,255,255,.06),
     0 20px 44px rgba(28, 10, 52, .48);
   backdrop-filter: brightness(1.06);
 }
-.piece .thumb{
-  position:absolute;
-  inset:0;
-  border-radius:14px;
-  pointer-events:none;
-}
-.piece--vitrail::before{
+.piece::before{
   content:"";
   position:absolute; inset:0;
   background:
@@ -647,7 +601,7 @@ body.has-selection .hero-overlay{
   pointer-events:none;
   border-radius:14px;
 }
-.piece--vitrail::after{
+.piece::after{
   content:"";
   position:absolute;
   inset:8px;
@@ -935,12 +889,6 @@ body.has-selection .hero-overlay{
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
   height: 180px;
   position:relative;
-}
-.art-media .thumb{
-  position:absolute;
-  inset:0;
-  border-radius:18px;
-  pointer-events:none;
 }
 .art-media::before{
   content:"";
