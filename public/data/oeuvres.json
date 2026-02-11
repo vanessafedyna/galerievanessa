@@ -209,7 +209,47 @@
     ],
     "image": "images/ferron-champ-de-mars.jpg",
     "source": "Wikimedia Commons (photo)",
-    "source_url": "https://commons.wikimedia.org/wiki/File:Les_grandes_formes_qui_dansent.jpg"
+    "source_url": "https://commons.wikimedia.org/wiki/File:Les_grandes_formes_qui_dansent.jpg",
+    "resume": "Un vitrail, c?est comme une mosa?que en verre color? : la lumi?re traverse et fait briller les couleurs !"
+  },
+  {
+    "id": "monument-permanent-holocauste-1970-concordia",
+    "artiste": "Marcelle Ferron",
+    "titre": "Monument permanent ? la m?moire des six millions de victimes juives de l?Holocauste (d?tail)",
+    "annee": "1970",
+    "periode": "1970s-80s",
+    "type": "Vitrail (art public)",
+    "resume": "Regarde les formes en verre : on dirait des pi?ces assembl?es comme un puzzle. Imagine comment les couleurs changent quand le soleil passe !",
+    "tags": [
+      "vitrail",
+      "art-public",
+      "universite",
+      "concordia",
+      "memoire",
+      "lumiere",
+      "montreal"
+    ],
+    "mots_cles": [
+      "verre",
+      "plomb",
+      "lumi?re",
+      "Concordia",
+      "Samuel-Bronfman",
+      "Holocauste"
+    ],
+    "materiaux": [
+      "verre",
+      "plomb"
+    ],
+    "lieu": "Maison Samuel-Bronfman (Universit? Concordia, Montr?al)",
+    "palette": [
+      "#5F388F",
+      "#ED575A",
+      "#FEC842"
+    ],
+    "image": "",
+    "source": "Universit? Concordia (article)",
+    "source_url": "https://www.concordia.ca/fr/actualites/nouvelles/2024/11/21/l-oeuvre-de-marcelle-ferron-conservee-a-l-universit-e-concordia-sera-bientot-exposee-au-Musee-de-l-holocauste-montreal.html"
   },
   {
     "id": "untitled-1972-mmfa",
@@ -277,6 +317,42 @@
     "source_url": "https://commons.wikimedia.org/wiki/File:Marcelle_Ferron,_-Sans_titre-,_1979_(6932256174).jpg"
   },
   {
+    "id": "verriere-et-sculpture-1979-station-vendome",
+    "artiste": "Marcelle Ferron",
+    "titre": "Verri?re et sculpture, station Vend?me (m?tro de Montr?al)",
+    "annee": "1979",
+    "periode": "1970s-80s",
+    "type": "Vitrail (art public)",
+    "resume": "Ici, les couleurs du vitrail se refl?tent partout : c?est comme si la lumi?re faisait un arc-en-ciel sur les murs !",
+    "tags": [
+      "vitrail",
+      "art-public",
+      "montreal",
+      "vendome",
+      "lumiere"
+    ],
+    "mots_cles": [
+      "plomb",
+      "verre",
+      "lumi?re",
+      "m?tro",
+      "Vend?me"
+    ],
+    "materiaux": [
+      "verre",
+      "plomb"
+    ],
+    "lieu": "Station Vend?me (m?tro de Montr?al)",
+    "palette": [
+      "#5F388F",
+      "#6249AC",
+      "#FEC842"
+    ],
+    "image": "images/ferron-vendome.jpg",
+    "source": "Wikimedia Commons (photo)",
+    "source_url": "https://commons.wikimedia.org/wiki/File:Marcelle_Ferron,_Verri%C3%A8re_et_sculpture,_1979,_verre_et_acier_inoxydable,_station_Vend%C3%B4me,_m%C3%A9tro_de_Montr%C3%A9al_(12501634003).jpg"
+  },
+  {
     "id": "vitrail-1966-commons",
     "artiste": "Marcelle Ferron",
     "titre": "Vitrail (photo Wikimedia Commons)",
@@ -305,6 +381,79 @@
     "image": "",
     "source": "Wikimedia Commons (photo)",
     "source_url": "https://commons.wikimedia.org/wiki/File:Marcelle_Ferron,_Vitrail,_1966_(6908862268).jpg"
+  },
+  {
+    "id": "soleil-de-nuit-1994-sainte-justine",
+    "artiste": "Marcelle Ferron",
+    "titre": "Soleil de nuit",
+    "annee": "1994",
+    "periode": "1970s-80s",
+    "type": "Vitrail (art public)",
+    "resume": "Un grand vitrail dans un h?pital : il met de la couleur et de la joie dans la salle d?attente !",
+    "tags": [
+      "vitrail",
+      "art-public",
+      "hopital",
+      "sainte-justine",
+      "lumiere",
+      "montreal"
+    ],
+    "mots_cles": [
+      "verre",
+      "plomb",
+      "lumi?re",
+      "H?pital Sainte-Justine"
+    ],
+    "materiaux": [
+      "verre",
+      "plomb"
+    ],
+    "lieu": "H?pital Sainte-Justine (Montr?al)",
+    "palette": [
+      "#ED575A",
+      "#5F388F",
+      "#FEC842"
+    ],
+    "image": "",
+    "source": "metrodemontreal.com (photos)",
+    "source_url": "https://www.metrodemontreal.com/art/ferron/soleilmain.html"
+  },
+  {
+    "id": "le-bateau-1997-ecole-au-point-du-jour",
+    "artiste": "Marcelle Ferron",
+    "titre": "Le bateau",
+    "annee": "1997",
+    "periode": "1970s-80s",
+    "type": "Vitrail (art public)",
+    "resume": "Trois verri?res peintes : cherche les formes qui te font penser ? un bateau, ? l?eau? ou ? des voiles !",
+    "tags": [
+      "vitrail",
+      "art-public",
+      "ecole",
+      "enfants",
+      "lumiere",
+      "assomption"
+    ],
+    "mots_cles": [
+      "verre",
+      "verri?re",
+      "?cole",
+      "L?Assomption",
+      "bateau"
+    ],
+    "materiaux": [
+      "Trois verri?res peintes",
+      "verre"
+    ],
+    "lieu": "?cole primaire Au Point-du-Jour (L?Assomption)",
+    "palette": [
+      "#6249AC",
+      "#ED575A",
+      "#FEC842"
+    ],
+    "image": "",
+    "source": "MRC de L?Assomption (fiche)",
+    "source_url": "https://www.mrclassomption.qc.ca/oeuvres/le-bateau"
   },
   {
     "id": "les-fees-se-drapent",
