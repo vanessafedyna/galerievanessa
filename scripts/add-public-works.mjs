@@ -89,7 +89,8 @@ const PUBLIC = [
     palette: ["#5F388F", "#6249AC", "#FEC842"],
     image: "images/ferron-vendome.jpg",
     source: "Wikimedia Commons (photo)",
-    source_url: "https://commons.wikimedia.org/wiki/File:Marcelle_Ferron_stained_glass_station_Vend%C3%B4me_(12501634003).jpg"
+    source_url:
+      "https://commons.wikimedia.org/wiki/File:Marcelle_Ferron,_Verrière_et_sculpture,_1979,_verre_et_acier_inoxydable,_station_Vendôme,_métro_de_Montréal_(12501634003).jpg"
   },
   {
     id: "untitled-1972-mmfa",
@@ -131,4 +132,3 @@ fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2) + "\n", "utf8");
 
 console.log(`OK: ${added} oeuvres publiques ajoutees (backup: data/oeuvres.before-public.json)`);
 console.log(`OK: ${copies.filter(Boolean).length} photos copiees dans images/`);
-
