@@ -98,34 +98,45 @@
           .replaceAll('"', "&quot;")
           .replaceAll("'", "&#39;");
 
-      const res = await fetch("/data/oeuvres.json", { cache: "no-store" });
-      const oeuvres = await res.json();
-      const withImages = Array.isArray(oeuvres) ? oeuvres.filter((o) => (o?.image ?? "").trim() !== "") : [];
+      const oeuvresUrl = new URL("data/oeuvres.json", window.location.href);
 
-      count.textContent = `Photos trouvées : ${withImages.length}`;
+      try {
+        const res = await fetch(oeuvresUrl, { cache: "no-store" });
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status} sur ${oeuvresUrl}`);
+        }
 
-      withImages.forEach((o) => {
-        const card = document.createElement("article");
-        card.className = "card";
+        const oeuvres = await res.json();
+        const withImages = Array.isArray(oeuvres) ? oeuvres.filter((o) => (o?.image ?? "").trim() !== "") : [];
 
-        const img = document.createElement("img");
-        img.className = "img";
-        img.loading = "lazy";
-        img.alt = o?.titre ? String(o.titre) : "Œuvre";
-        img.src = `/${String(o.image).replace(/^\\//, "")}`;
+        count.textContent = `Photos trouvées : ${withImages.length}`;
 
-        const cap = document.createElement("div");
-        cap.className = "cap";
-        cap.innerHTML =
-          `<p class="title">${esc(o?.titre ?? o?.id ?? "Œuvre")}</p>` +
-          `<p class="meta">${esc(o?.annee ?? "")} · ${esc(o?.type ?? "")}</p>` +
-          `<span class="pill">${esc(o?.id ?? "")}</span>`;
+        withImages.forEach((o) => {
+          const card = document.createElement("article");
+          card.className = "card";
 
-        card.appendChild(img);
-        card.appendChild(cap);
-        grid.appendChild(card);
-      });
+          const img = document.createElement("img");
+          img.className = "img";
+          img.loading = "lazy";
+          img.alt = o?.titre ? String(o.titre) : "Œuvre";
+          img.src = String(new URL(String(o.image).replace(/^\\/+/, ""), window.location.href));
+
+          const cap = document.createElement("div");
+          cap.className = "cap";
+          cap.innerHTML =
+            `<p class="title">${esc(o?.titre ?? o?.id ?? "Œuvre")}</p>` +
+            `<p class="meta">${esc(o?.annee ?? "")} · ${esc(o?.type ?? "")}</p>` +
+            `<span class="pill">${esc(o?.id ?? "")}</span>`;
+
+          card.appendChild(img);
+          card.appendChild(cap);
+          grid.appendChild(card);
+        });
+      } catch (err) {
+        console.error("Impossible de charger la liste des œuvres:", err);
+        count.textContent =
+          "Je n’arrive pas à charger /data/oeuvres.json. Ouvre cette page via Vite (npm run dev ou npm run preview), pas en double-cliquant le fichier.";
+      }
     </script>
   </body>
 </html>
-
