@@ -277,39 +277,34 @@
     "source_url": "https://commons.wikimedia.org/wiki/File:Marcelle_Ferron,_-Sans_titre-,_1979_(6932256174).jpg"
   },
   {
-    "id": "verriere-et-sculpture-1979-station-vendome",
+    "id": "vitrail-1966-commons",
     "artiste": "Marcelle Ferron",
-    "titre": "Verrière et sculpture, station Vendôme (métro de Montréal)",
-    "annee": "1979",
-    "periode": "1970s-80s",
-    "type": "Vitrail (art public)",
+    "titre": "Vitrail (photo Wikimedia Commons)",
+    "annee": "1966",
+    "periode": "1960s",
+    "type": "Vitrail",
     "tags": [
       "vitrail",
-      "art-public",
-      "montreal",
-      "vendome",
       "lumiere"
     ],
     "mots_cles": [
       "plomb",
       "verre",
-      "lumière",
-      "métro",
-      "Vendôme"
+      "lumière"
     ],
     "materiaux": [
       "verre",
       "plomb"
     ],
-    "lieu": "Station Vendôme (métro de Montréal)",
+    "lieu": "",
     "palette": [
       "#5F388F",
       "#6249AC",
       "#FEC842"
     ],
-    "image": "images/ferron-vendome.jpg",
+    "image": "",
     "source": "Wikimedia Commons (photo)",
-    "source_url": "https://commons.wikimedia.org/wiki/File:Marcelle_Ferron,_Verri%C3%A8re_et_sculpture,_1979,_verre_et_acier_inoxydable,_station_Vend%C3%B4me,_m%C3%A9tro_de_Montr%C3%A9al_(12501634003).jpg"
+    "source_url": "https://commons.wikimedia.org/wiki/File:Marcelle_Ferron,_Vitrail,_1966_(6908862268).jpg"
   },
   {
     "id": "les-fees-se-drapent",
