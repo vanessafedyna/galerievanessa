@@ -1,9 +1,9 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Mur de lumière</title>
+  <title>Mur de lumiÃ¨re</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Outfit:wght@400..900&display=swap" rel="stylesheet" />
@@ -20,16 +20,11 @@
         <a
           class="mh-back"
           href="https://projet-marcelle-ferron.vercel.app/"
-          aria-label="Retourner à l’accueil"
-          title="Retourner à l’accueil"
+          aria-label="Accueil"
+          title="Accueil"
         >
-          <span class="mh-icon" aria-hidden="true">✦</span>
+          <span class="mh-back-label" data-i18n="headerBack">Accueil</span>
         </a>
-
-        <div class="mh-copy">
-          <div class="mh-place" id="mhPlace">Centre des sciences de Montréal</div>
-          <div class="mh-event" id="mhEvent">Journée des femmes en science</div>
-        </div>
       </div>
 
       <div class="mh-lang" role="group" aria-label="Langue" data-i18n-attr="aria-label:langGroup">
@@ -39,15 +34,15 @@
     </header>
 
     <header class="top glass hero-title">
-      <h1 data-i18n="heroTitle">Marcelle Ferron — Mur de lumière</h1>
+      <h1 data-i18n="heroTitle">Marcelle Ferron â€” Mur de lumiÃ¨re</h1>
       <p class="subtitle" data-i18n="heroSubtitle">
-        Clique une période, puis un fragment. Le guide commente l’œuvre avec le contexte (Automatistes → vitrail → art public).
+        Clique une pÃ©riode, puis un fragment. Le guide commente lâ€™Å“uvre avec le contexte (Automatistes â†’ vitrail â†’ art public).
       </p>
     </header>
 
-    <!-- Périodes (timeline cachée dans un menu déroulant) -->
+    <!-- PÃ©riodes (timeline cachÃ©e dans un menu dÃ©roulant) -->
     <details class="period-menu">
-      <summary class="period-menu-summary glass" data-i18n="periodMenuToggle">Périodes</summary>
+      <summary class="period-menu-summary glass" data-i18n="periodMenuToggle">PÃ©riodes</summary>
 
       <nav class="timeline glass" aria-label="Ligne de temps" data-i18n-attr="aria-label:timelineAria">
         <button class="station active" data-periode="toutes" aria-pressed="true">
@@ -59,31 +54,31 @@
 
         <button class="station" data-periode="1940s" aria-pressed="false">
           <span class="dot"></span>
-          <span class="label" data-i18n="timeline1940s">1940s · Débuts</span>
+          <span class="label" data-i18n="timeline1940s">1940s Â· DÃ©buts</span>
         </button>
 
         <button class="station" data-periode="1950s" aria-pressed="false">
           <span class="dot"></span>
-          <span class="label" data-i18n="timeline1950s">1950s · Automatistes</span>
+          <span class="label" data-i18n="timeline1950s">1950s Â· Automatistes</span>
         </button>
 
         <button class="station" data-periode="1960s" aria-pressed="false">
           <span class="dot"></span>
-          <span class="label" data-i18n="timeline1960s">1960s · Paris & transition</span>
+          <span class="label" data-i18n="timeline1960s">1960s Â· Paris & transition</span>
         </button>
 
         <button class="station" data-periode="1970s-80s" aria-pressed="false">
           <span class="dot"></span>
-          <span class="label" data-i18n="timeline1970s">1970–80s · Maturité</span>
+          <span class="label" data-i18n="timeline1970s">1970â€“80s Â· MaturitÃ©</span>
         </button>
       </nav>
 
       <!-- Carte de contexte (narration de la timeline) -->
-      <section class="period-card glass" aria-label="Contexte de la période" data-i18n-attr="aria-label:periodCardAria">
-        <h2 class="period-title" id="periodTitle">Toutes les périodes</h2>
+      <section class="period-card glass" aria-label="Contexte de la pÃ©riode" data-i18n-attr="aria-label:periodCardAria">
+        <h2 class="period-title" id="periodTitle">Toutes les pÃ©riodes</h2>
         <p class="period-text" id="periodText">
-          Parcours global : des débuts abstraits (années 1940) au geste automatiste (années 1950), puis aux recherches et structures
-          (années 1960) et à la maturité (années 1970–80).
+          Parcours global : des dÃ©buts abstraits (annÃ©es 1940) au geste automatiste (annÃ©es 1950), puis aux recherches et structures
+          (annÃ©es 1960) et Ã  la maturitÃ© (annÃ©es 1970â€“80).
         </p>
       </section>
     </details>
@@ -95,38 +90,38 @@
           <div class="spot" aria-hidden="true"></div>
           <div class="mosaic-hero hero-overlay" aria-hidden="true">
             <p class="eyebrow" data-i18n="mosaicEyebrow">galerie immersive</p>
-            <h2 data-i18n="mosaicTitle">Choisis un fragment pour explorer l'œuvre lumineuse de Marcelle Ferron</h2>
+            <h2 data-i18n="mosaicTitle">Choisis un fragment pour explorer l'Å“uvre lumineuse de Marcelle Ferron</h2>
             <p class="hero-copy" data-i18n="mosaicCopy">
-              Chaque morceau de lumière est une porte vers une œuvre : clique et laisse le guide raconter les gestes, la
-              couleur et le contexte Automatistes → vitrail → art public.
+              Chaque morceau de lumiÃ¨re est une porte vers une Å“uvre : clique et laisse le guide raconter les gestes, la
+              couleur et le contexte Automatistes â†’ vitrail â†’ art public.
             </p>
-            <p class="hero-hint" data-i18n="mosaicHint">Survole un fragment, puis clique pour révéler l’histoire.</p>
+            <p class="hero-hint" data-i18n="mosaicHint">Survole un fragment, puis clique pour rÃ©vÃ©ler lâ€™histoire.</p>
           </div>
           <div class="mosaic-pieces" id="mosaicPieces" aria-live="polite"></div>
         </div>
 
         <div class="legend">
-          <span class="pill" id="legendPeriod">Période : Toutes</span>
-          <span class="pill" id="legendCount">Œuvres : …</span>
+          <span class="pill" id="legendPeriod">PÃ©riode : Toutes</span>
+          <span class="pill" id="legendCount">Å’uvres : â€¦</span>
         </div>
 
-        <div class="pager" aria-label="Pagination des œuvres" data-i18n-attr="aria-label:pagerAria">
-          <button class="pager-btn" id="prevPage" type="button" disabled data-i18n="pagerPrev">◀ Précédent</button>
+        <div class="pager" aria-label="Pagination des Å“uvres" data-i18n-attr="aria-label:pagerAria">
+          <button class="pager-btn" id="prevPage" type="button" disabled data-i18n="pagerPrev">â—€ PrÃ©cÃ©dent</button>
           <span class="pager-info" id="pageInfo">Page 1</span>
-          <button class="pager-btn" id="nextPage" type="button" disabled data-i18n="pagerNext">Suivant ▶</button>
+          <button class="pager-btn" id="nextPage" type="button" disabled data-i18n="pagerNext">Suivant â–¶</button>
         </div>
       </section>
 
       <!-- Panneau chatbot -->
       <aside class="panel glass" aria-label="Panneau guide" data-i18n-attr="aria-label:panelAria">
         <div class="panel-head">
-          <div class="badge" id="status">Sélectionne un fragment</div>
+          <div class="badge" id="status">SÃ©lectionne un fragment</div>
           <div class="badge subtle" data-i18n="guideLabel">Guide Ferron</div>
         </div>
 
         <div class="panel-body">
-        <h2 class="art-title" id="artTitle">…</h2>
-        <p class="art-meta" id="artMeta">Clique sur une œuvre pour commencer.</p>
+        <h2 class="art-title" id="artTitle">â€¦</h2>
+        <p class="art-meta" id="artMeta">Clique sur une Å“uvre pour commencer.</p>
 
         <div class="section" id="sectionDesc" hidden>
           <div class="section-title" data-i18n="sectionDescription">Description</div>
@@ -135,22 +130,24 @@
 
           <div class="section" id="sectionLinks" hidden>
             <div class="art-links" id="artLinks">
-              <a class="link-btn" id="sourceBtn" href="#" target="_blank" rel="noopener noreferrer" data-i18n="sourceBtn">Voir la fiche du musée</a>
+              <a class="link-btn" id="sourceBtn" href="#" target="_blank" rel="noopener noreferrer" data-i18n="sourceBtn">Voir la fiche du musÃ©e</a>
             </div>
           </div>
 
           <div class="section" id="sectionThumb" hidden>
-            <div class="art-media" id="artMedia" aria-label="Vignette vitrail" data-i18n-attr="aria-label:thumbAria"></div>
+            <div class="art-media" id="artMedia" aria-label="Vignette vitrail" data-i18n-attr="aria-label:thumbAria">
+              <img id="artMediaImg" alt="" hidden />
+            </div>
           </div>
 
           <div class="section">
-            <div class="bot" id="botText">Le commentaire apparaîtra ici.</div>
+            <div class="bot" id="botText">Le commentaire apparaÃ®tra ici.</div>
           </div>
         </div>
 
         <div class="actions">
           <button class="btn" data-action="intro" data-i18n="actionIntro">Intro</button>
-          <button class="btn" data-action="lumiere" data-i18n="actionLumiere">Lumière</button>
+          <button class="btn" data-action="lumiere" data-i18n="actionLumiere">LumiÃ¨re</button>
           <button class="btn" data-action="couleur" data-i18n="actionCouleur">Couleur</button>
           <button class="btn" data-action="contexte" data-i18n="actionContexte">Contexte</button>
         </div>
@@ -166,3 +163,6 @@
   <script type="module" src="/src/main.ts"></script>
 </body>
 </html>
+
+
+

@@ -1,3 +1,5 @@
+import { createArtworkDataset, findArtworkById, type ArtworkRecord } from "./artworks";
+
 type ChatbotAction = "intro" | "lumiere" | "couleur" | "contexte" | "similaire" | "droits";
 type PeriodeFilter = "toutes" | "1940s" | "1950s" | "1960s" | "1970s-80s" | (string & {});
 type HeaderLang = "fr" | "en";
@@ -59,7 +61,7 @@ const i18n: Record<
       langGroup: "Langue",
       headerPlace: "Centre des sciences de Montréal",
       headerEvent: "Journée des femmes en science",
-      headerBack: "Retourner à l’accueil",
+      headerBack: "Accueil",
       heroTitle: "Mur de lumière",
       heroSubtitle:
         "Choisis une période, puis clique un morceau de vitrail. Je t’explique simplement.",
@@ -215,7 +217,7 @@ const i18n: Record<
       langGroup: "Language",
       headerPlace: "Montréal Science Centre",
       headerEvent: "Women in Science Day",
-      headerBack: "Back to home",
+      headerBack: "Home",
       heroTitle: "Wall of Light",
       heroSubtitle:
         "Pick a period, then click a stained-glass piece. I’ll explain it simply.",
@@ -415,6 +417,7 @@ const sectionThumb = qs<HTMLElement>("#sectionThumb");
 const artLinks = qs<HTMLElement>("#artLinks");
 const sourceBtn = qs<HTMLAnchorElement>("#sourceBtn");
 const artMedia = qs<HTMLElement>("#artMedia");
+const artMediaImg = qs<HTMLImageElement>("#artMediaImg");
 const botText = qs<HTMLElement>("#botText");
 const legendPeriod = qs<HTMLElement>("#legendPeriod");
 const legendCount = qs<HTMLElement>("#legendCount");
@@ -459,9 +462,11 @@ const setHeaderLang = (lang: HeaderLang): void => {
 };
 
 let oeuvres: Oeuvre[] = [];
+let artworks: ArtworkRecord[] = [];
 let periodeActive: PeriodeFilter = "toutes";
 let selectedId: string | null = null;
 let pageIndex = 0;
+const SELECTED_ARTWORK_STORAGE_KEY = "mur-de-lumiere:selectedArtworkId";
 
 const SLOTS = [
   "slot1",
@@ -496,6 +501,7 @@ const loadOeuvres = async (): Promise<void> => {
   const response = await fetch("/data/oeuvres.json", { cache: "no-store" });
   const data = (await response.json()) as Oeuvre[];
   oeuvres = data;
+  artworks = createArtworkDataset(data);
 };
 
 const periodeLabel = (periode: string): string => {
@@ -517,21 +523,55 @@ const updatePeriodCard = (): void => {
   periodText.textContent = card.text;
 };
 
-const filterOeuvresByPeriode = (list: Oeuvre[], periode: string): Oeuvre[] => {
+const filterArtworksByPeriode = (list: ArtworkRecord[], periode: string): ArtworkRecord[] => {
   if (periode === "toutes") {
     return list;
   }
-  return list.filter((oeuvre) => oeuvre.periode === periode);
+  return list.filter((artwork) => artwork.info.period === periode);
+};
+
+const readPersistedSelectedId = (): string | null => {
+  const urlId = new URLSearchParams(window.location.search).get("artwork");
+  if (urlId) return urlId;
+  try {
+    return localStorage.getItem(SELECTED_ARTWORK_STORAGE_KEY);
+  } catch {
+    return null;
+  }
+};
+
+const persistSelectedId = (id: string | null): void => {
+  try {
+    if (id) {
+      localStorage.setItem(SELECTED_ARTWORK_STORAGE_KEY, id);
+    } else {
+      localStorage.removeItem(SELECTED_ARTWORK_STORAGE_KEY);
+    }
+  } catch {
+    // Ignore storage errors (private mode / blocked storage).
+  }
+
+  const url = new URL(window.location.href);
+  if (id) {
+    url.searchParams.set("artwork", id);
+  } else {
+    url.searchParams.delete("artwork");
+  }
+  window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
 };
 
 const resetSelectionState = (): void => {
   selectedId = null;
+  persistSelectedId(null);
   document.body.classList.remove("has-selection");
   statusBadge.textContent = i18nValue("statusDefault");
   artTitle.textContent = "…";
   artMeta.textContent = i18nValue("artMetaDefault");
   artMedia.setAttribute("hidden", "true");
   artMedia.style.backgroundImage = "";
+  artMediaImg.src = "";
+  artMediaImg.alt = "";
+  artMediaImg.hidden = true;
   sectionDesc.setAttribute("hidden", "true");
   artDesc.textContent = "";
   sectionLinks.setAttribute("hidden", "true");
@@ -540,26 +580,26 @@ const resetSelectionState = (): void => {
   botText.textContent = i18nValue("botDefault");
 };
 
-const buildLocalDescription = (oeuvre: Oeuvre): string => {
+const buildLocalDescription = (artwork: ArtworkRecord): string => {
   const parts: string[] = [];
 
-  if (oeuvre.contexte && oeuvre.contexte.trim()) {
-    parts.push(oeuvre.contexte.trim());
+  if (artwork.info.description) {
+    parts.push(artwork.info.description);
   } else {
     // Fallback: narration par période si pas de contexte spécifique.
-    parts.push(periodeNarration(oeuvre.periode).text);
+    parts.push(periodeNarration(artwork.info.period).text);
   }
 
-  if (oeuvre.materiaux?.length) {
-    parts.push(`${i18nValue("materialsLabel")} : ${oeuvre.materiaux.join(", ")}`);
+  if (artwork.info.materials.length) {
+    parts.push(`${i18nValue("materialsLabel")} : ${artwork.info.materials.join(", ")}`);
   }
-  if (oeuvre.lieu) {
-    parts.push(`${i18nValue("placeLabel")} : ${oeuvre.lieu}`);
+  if (artwork.info.place) {
+    parts.push(`${i18nValue("placeLabel")} : ${artwork.info.place}`);
   }
-  if (oeuvre.mots_cles?.length) {
-    parts.push(`${i18nValue("keywordsLabel")} : ${oeuvre.mots_cles.join(" • ")}`);
+  if (artwork.info.keywords.length) {
+    parts.push(`${i18nValue("keywordsLabel")} : ${artwork.info.keywords.join(", ")}`);
   }
-  if (oeuvre.source_url) {
+  if (artwork.linkUrl) {
     parts.push(i18nValue("tipSource"));
   }
 
@@ -573,14 +613,14 @@ const updateSelectedDescription = (id: string | null): void => {
     return;
   }
 
-  const oeuvre = oeuvres.find((o) => o.id === id);
-  if (!oeuvre) {
+  const artwork = findArtworkById(artworks, id);
+  if (!artwork) {
     sectionDesc.setAttribute("hidden", "true");
     artDesc.textContent = "";
     return;
   }
 
-  artDesc.textContent = buildLocalDescription(oeuvre);
+  artDesc.textContent = buildLocalDescription(artwork);
   sectionDesc.removeAttribute("hidden");
 };
 
@@ -594,8 +634,8 @@ const updateSelectedLinks = (id: string | null): void => {
     return;
   }
 
-  const oeuvre = oeuvres.find((o) => o.id === id);
-  const url = oeuvre?.source_url;
+  const artwork = findArtworkById(artworks, id);
+  const url = artwork?.linkUrl;
   if (url) {
     sectionLinks.removeAttribute("hidden");
     sourceBtn.href = url;
@@ -615,18 +655,34 @@ const updateSelectedMedia = (id: string | null): void => {
   if (!id) {
     sectionThumb.setAttribute("hidden", "true");
     artMedia.style.backgroundImage = "";
+    artMediaImg.src = "";
+    artMediaImg.alt = "";
+    artMediaImg.hidden = true;
     return;
   }
 
-  const oeuvre = oeuvres.find((o) => o.id === id);
-  if (!oeuvre) {
+  const artwork = findArtworkById(artworks, id);
+  if (!artwork) {
     sectionThumb.setAttribute("hidden", "true");
     artMedia.style.backgroundImage = "";
+    artMediaImg.src = "";
+    artMediaImg.alt = "";
+    artMediaImg.hidden = true;
     return;
   }
 
-  // Stratégie "safe": on affiche une vignette générée (dégradé), pas la photo de l'oeuvre.
-  artMedia.style.backgroundImage = gradientFromPalette(oeuvre.palette);
+  // Prefer local artwork image; fallback to generated gradient when missing.
+  if (artwork.imageSrc) {
+    artMedia.style.backgroundImage = "";
+    artMediaImg.src = artwork.imageSrc;
+    artMediaImg.alt = artwork.title;
+    artMediaImg.hidden = false;
+  } else {
+    artMediaImg.src = "";
+    artMediaImg.alt = "";
+    artMediaImg.hidden = true;
+    artMedia.style.backgroundImage = gradientFromPalette(artwork.palette);
+  }
   sectionThumb.removeAttribute("hidden");
 };
 
@@ -896,7 +952,7 @@ const syncPieceMosaicBackgrounds = (): void => {
 };
 
 const renderMosaic = (): void => {
-  const filtered = filterOeuvresByPeriode(oeuvres, periodeActive);
+  const filtered = filterArtworksByPeriode(artworks, periodeActive);
 
   legendPeriod.textContent = `${i18nValue("legendPeriodPrefix")} : ${periodeLabel(periodeActive)}`;
   legendCount.textContent = `${i18nValue("legendCountPrefix")} : ${filtered.length}`;
@@ -915,44 +971,44 @@ const renderMosaic = (): void => {
     total: totalPages
   });
 
-  visible.forEach((oeuvre, index) => {
+  visible.forEach((artwork, index) => {
     const slotName = SLOTS[index];
     const fragment = document.createElement("div");
     fragment.className = `piece ${slotName}`;
     fragment.tabIndex = 0;
     fragment.role = "button";
-    fragment.dataset.id = oeuvre.id;
-    fragment.dataset.titre = oeuvre.titre;
-    fragment.dataset.meta = `${oeuvre.annee} · ${oeuvre.periode} · ${oeuvre.type}`;
+    fragment.dataset.id = artwork.id;
+    fragment.dataset.titre = artwork.title;
+    fragment.dataset.meta = `${artwork.info.year} - ${artwork.info.period} - ${artwork.info.type}`;
     fragment.setAttribute(
       "aria-label",
       i18nValue("pieceAria", {
-        title: oeuvre.titre,
-        year: oeuvre.annee,
-        type: oeuvre.type
+        title: artwork.title,
+        year: artwork.info.year,
+        type: artwork.info.type
       })
     );
-    const gradient = gradientFromPalette(oeuvre.palette);
+    const gradient = gradientFromPalette(artwork.palette);
     // Stratégie "safe": on n'utilise pas d'images d'oeuvres, uniquement des vignettes générées.
     fragment.style.setProperty("--piece-gradient", gradient);
 
-    fragment.setAttribute("aria-selected", oeuvre.id === selectedId ? "true" : "false");
+    fragment.setAttribute("aria-selected", artwork.id === selectedId ? "true" : "false");
 
-    fragment.addEventListener("click", () => void onSelect(oeuvre.id));
+    const fragmentTitle = document.createElement("span");
+    fragmentTitle.className = "piece-title";
+    fragmentTitle.textContent = artwork.title;
+    fragment.appendChild(fragmentTitle);
+
+    fragment.addEventListener("click", () => void onSelect(artwork.id));
     fragment.addEventListener("keydown", (event: KeyboardEvent) => {
       if (event.key === "Enter" || event.key === " ") {
         event.preventDefault();
-        void onSelect(oeuvre.id);
+        void onSelect(artwork.id);
       }
     });
 
     mosaicPieces.appendChild(fragment);
   });
-
-  const stillVisible = visible.some((oeuvre) => oeuvre.id === selectedId);
-  if (!stillVisible) {
-    resetSelectionState();
-  }
 
   requestAnimationFrame(syncPieceMosaicBackgrounds);
 };
@@ -987,6 +1043,7 @@ const callChatbot = async (action: ChatbotAction): Promise<void> => {
 
 const onSelect = async (id: string): Promise<void> => {
   selectedId = id;
+  persistSelectedId(id);
   document.body.classList.add("has-selection");
   setSelectedVisual(id);
   updateSelectedDescription(id);
@@ -1069,6 +1126,10 @@ void (async function init(): Promise<void> {
   applyI18nStatic();
   updatePeriodCard();
   renderMosaic();
+  const persistedId = readPersistedSelectedId();
+  if (persistedId && artworks.some((artwork) => artwork.id === persistedId)) {
+    await onSelect(persistedId);
+  }
 
   let resizeRaf = 0;
   window.addEventListener("resize", () => {
