@@ -383,40 +383,22 @@
     "source_url": "https://commons.wikimedia.org/wiki/File:Marcelle_Ferron,_Vitrail,_1966_(6908862268).jpg"
   },
   {
-    "id": "soleil-de-nuit-1994-sainte-justine",
+    "id": "sans-titre-02-50",
     "artiste": "Marcelle Ferron",
-    "titre": "Soleil de nuit",
-    "annee": "1994",
-    "periode": "1970s-80s",
-    "type": "Vitrail (art public)",
-    "resume": "Un grand vitrail dans un h?pital : il met de la couleur et de la joie dans la salle d?attente !",
-    "tags": [
-      "vitrail",
-      "art-public",
-      "hopital",
-      "sainte-justine",
-      "lumiere",
-      "montreal"
-    ],
-    "mots_cles": [
-      "verre",
-      "plomb",
-      "lumi?re",
-      "H?pital Sainte-Justine"
-    ],
-    "materiaux": [
-      "verre",
-      "plomb"
-    ],
-    "lieu": "H?pital Sainte-Justine (Montr?al)",
+    "titre": "Sans titre",
+    "annee": "1947",
+    "periode": "1940s",
+    "type": "Oeuvre",
+    "tags": [],
+    "mots_cles": [],
     "palette": [
-      "#ED575A",
-      "#5F388F",
-      "#FEC842"
+      "#1b1b1b",
+      "#f0f0f0",
+      "#6249AC"
     ],
-    "image": "",
-    "source": "metrodemontreal.com (photos)",
-    "source_url": "https://www.metrodemontreal.com/art/ferron/soleilmain.html"
+    "image": "images/sans-titre-02-50.jpg",
+    "source": "MACr?pertoire (MACM)",
+    "source_url": "https://macrepertoire.macm.org/oeuvre/sans-titre-02-50/"
   },
   {
     "id": "le-bateau-1997-ecole-au-point-du-jour",
